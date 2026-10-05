@@ -1,17 +1,25 @@
-# VAGAutomatic.co.uk V4
+# VAGAutomatic.co.uk V4.2 Monster
 
-V4 reorganises the site around a business-style navigation structure while retaining the detailed V3 fault pages.
+Full replacement package built on V4.1 menu hotfix.
 
-## New V4 structure
-- `/tcm-repairs/`
-- `/mechatronic-repairs/`
-- `/data-services/`
-- `/contact/`
-- `/find-us/`
-- desktop dropdown navigation + mobile menu across every page
-- workshop address and opening hours match the TCMRepair presentation
+## Upload
+Upload everything in this folder to the root of the existing GitHub Pages repository. GitHub will replace matching V4.1 files automatically and add the new folders.
 
-## Deploy
-Upload **all contents** of this V4 folder into the root of the existing GitHub repository. Same-path V3 files will be replaced automatically. New V4 folders will be added. No V3 files need to be deleted first.
+## New public pages
+- `/known-faults/` — searchable DSG fault library
+- `/dq500-identification/` — Bosch vs Continental DQ500 controller guide
+- `/about/` — technical review / workshop standards
 
-Do not change Cloudflare DNS, GitHub Pages custom-domain settings, or the CNAME value.
+## V4.2 changes
+- Expanded Repair Finder with DQ200 selector/pump faults, DQ250 routing, DQ381/DQ500 companion codes and broader Continental DQ500 coverage.
+- Added diagnosis-led fault coverage without turning uncertain codes into fixed-price promises.
+- Added cloning compatibility guidance.
+- Added technical-review trust strip to core repair/category pages.
+- Added DQ500 Bosch vs Continental identification guidance.
+- Updated sitemap and internal navigation.
+
+## After deployment
+1. Wait for GitHub Pages deployment to turn green.
+2. Hard refresh (`Ctrl+F5`).
+3. Test `/known-faults/`, `/dq500-identification/`, `/repair-finder/`, and the four core repair pages.
+4. Do not submit Search Console sitemap until the live pages have been visually checked.

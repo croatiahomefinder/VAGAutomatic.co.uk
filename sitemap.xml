@@ -37,6 +37,24 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://vagautomatic.co.uk/known-faults/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://vagautomatic.co.uk/dq500-identification/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://vagautomatic.co.uk/about/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://vagautomatic.co.uk/dq200-hydraulic-pressure-repair/</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
