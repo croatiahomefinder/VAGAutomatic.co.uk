@@ -25,7 +25,7 @@
       return;
     }
 
-    if (has(s,['p17bf','p189c','006300','p1895','pump keeps running','pump runs constantly','pressure build up','pressure buildup','insufficient pressure'])) {
+    if (has(s,['p17bf','06079','006079','p189c','006300','p1895','06293','006293','pump keeps running','pump runs constantly','pump runs all the time','pressure build up','pressure buildup','insufficient pressure','slips into neutral','loses drive','loss of drive','prnds flashing','spanner flashing'])) {
       render('green','DQ200 fixed-price hydraulic / mechatronic repair','This symptom or code matches our £399.99 fixed-price DQ200 hydraulic / mechatronic repair. The fixed price covers the internal mechatronic repair required to resolve the supported fault.','<a class="btn btn-dark" href="/dq200-hydraulic-pressure-repair/">View £399.99 repair</a>');
       return;
     }
@@ -35,7 +35,7 @@
       return;
     }
 
-    if (has(s,['p1735','p173500','10666','p1736','p173600','10668','p0805','only even gears','only odd gears','lost even gears','lost odd gears'])) {
+    if (has(s,['p1735','p173500','10666','p1736','p173600','10668','p0805','only even gears','only odd gears','lost even gears','lost odd gears','gearbox emergency mode','transmission emergency mode','r 2 4 6','reverse 2 4 6','gears 2 4 6','half the gears','comes back after restart','returns after restart'])) {
       render('green','Supported P1735 / P1736 fault family','This fault is covered on supported DQ380/DQ381 and DQ500 controllers. Choose the correct transmission/controller page from the unit label before sending.','<a class="btn btn-dark" href="/dq380-dq381-p1735-p1736-repair/">DQ380 / DQ381</a><a class="btn btn-outline" href="/dq500-bosch-p1735-p1736-repair/">DQ500 Bosch</a><a class="btn btn-outline" href="/dq500-continental-p1735-p1736-repair/">DQ500 Continental</a>');
       return;
     }

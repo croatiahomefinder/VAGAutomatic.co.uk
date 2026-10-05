@@ -1,27 +1,26 @@
-# VAGAutomatic.co.uk V2 deployment
+# VAGAutomatic.co.uk V3
 
-This package replaces the current V1 site. It keeps the same URLs but tightens the commercial wording and shipping rules.
-
-## What changed
-- Customer pays courier costs both ways on every repair.
-- DQ200 £399.99 is defined as one fixed price for the supported internal hydraulic / mechatronic repair required to resolve the fault, not one named component.
-- DQ200 supplier brands and internal repair methods are not disclosed publicly.
-- DQ381 / DQ500 wording changed from “exactly a repair we specialise in” to “supported fixed-price repair”.
-- Same-day remains +£49 for supported repairable units received before 12:00 noon on a working day.
-- Standard turnaround remains 2 to 3 working days.
-- 2-year repair warranty retained.
-- Premium / traceable parts wording retained without revealing proprietary sourcing or process.
-- Europe shipping page now states customer-paid carriage both ways.
-- Added printable /customs-form/ support form.
-- Added the missing /assets/site.css and /assets/repair-finder.js plus CNAME, robots.txt and sitemap.xml.
+V3 is a content/SEO expansion of V2. It keeps the same URLs, prices, forms and commercial model while adding deeper search-intent coverage.
 
 ## Upload
-Upload the CONTENTS of this folder to the root of the GitHub repository and replace matching files. Keep the directory structure intact.
+Upload **all files and folders in this package** to the root of the existing GitHub repository. Same-path files replace V2 automatically. There are no V2-only production files that must be deleted first.
 
-## After upload
-1. Wait for GitHub Pages deployment to go green.
-2. Hard refresh https://vagautomatic.co.uk/
-3. Test the Repair Finder.
-4. Test every repair form.
-5. Test /europe-repair-shipping/ and /customs-form/.
-6. Only after final visual approval, submit sitemap.xml in Google Search Console.
+## Commercial rules locked into V3
+- DQ200 hydraulic/mechatronic supported fault: £399.99 Standard / £448.99 Same-Day
+- DQ380/DQ381 P1735/P1736: £329.99 / £378.99
+- DQ500 Bosch: £349.99 / £398.99
+- DQ500 Continental: £379.99 / £428.99
+- Standard turnaround: 2 to 3 working days from receipt
+- Same-Day: +£49, supported repairable unit received before 12:00 noon on a working day
+- Customer pays courier both ways
+- Free testing, no repair no fee, 2-year repair warranty
+- DQ200 £399.99 covers whatever repairable internal mechatronic cause is responsible for the supported hydraulic/pressure fault
+- DQ200 internal repair method/supplier brand is not disclosed
+
+## Before Search Console sitemap submission
+1. Confirm GitHub Pages deployed successfully.
+2. Force refresh homepage and all four repair pages.
+3. Test Repair Finder examples.
+4. Test each Formspree form once.
+5. Check mobile layout.
+6. Then submit https://vagautomatic.co.uk/sitemap.xml in Search Console.
