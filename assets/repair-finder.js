@@ -1,28 +1,59 @@
+(() => {
+  const q = document.getElementById('faultQuery');
+  const btn = document.getElementById('faultButton');
+  const out = document.getElementById('faultResult');
+  if (!q || !btn || !out) return;
 
-const q = document.getElementById('faultQuery');
-const out = document.getElementById('faultResult');
-const norm = s => s.toLowerCase().replace(/[._\-/]/g,' ').replace(/\s+/g,' ').trim();
-const rules = [
-  {terms:['p17bf','006079','p189c','006300','p1895','insufficient pressure build up','pump keeps running','hydraulic pump protection'], type:'green', title:'DQ200 hydraulic pressure repair', price:'£399.99', url:'/dq200-hydraulic-pressure-repair/', text:'A known DQ200 hydraulic pressure fault family we support at fixed price.'},
-  {terms:['p0841','17225','10784','pressure sensor range performance','transmission fluid pressure sensor'], type:'amber', title:'DQ200 pressure fault needs context', price:'Free test first', url:'/dq200-hydraulic-pressure-repair/', text:'P0841 can accompany genuine pressure loss, but it should not be treated as proof of one exact internal failure on its own.'},
-  {terms:['p1735','p173500','10666','clutch 1 position sensor','position sender for clutch 1','only even gears','reverse 2nd 4th 6th'], type:'green', title:'DQ380 / DQ381 P1735 repair', price:'£329.99', url:'/dq380-dq381-p1735-p1736-repair/', text:'This matches the supported DQ380/DQ381 clutch 1 position-sensing fault family.'},
-  {terms:['p1736','p173600','10668','clutch 2 position sensor','position sender for clutch 2','only odd gears','1st 3rd 5th 7th'], type:'green', title:'DQ380 / DQ381 P1736 repair', price:'£329.99', url:'/dq380-dq381-p1735-p1736-repair/', text:'This matches the supported DQ380/DQ381 clutch 2 position-sensing fault family.'},
-  {terms:['p0805','clutch position sensor circuit'], type:'amber', title:'P0805 needs controller identification', price:'Free identification', url:'/repair-finder/', text:'P0805 appears on more than one hardware family. Send the TCM label or choose Bosch / Continental before posting.'},
-  {terms:['p0c29','auxiliary hydraulic pump','aux hydraulic pump'], type:'red', title:'Do not send the TCM only', price:'Vehicle / gearbox diagnosis', url:'#', text:'This fault can involve the auxiliary hydraulic pump inside the gearbox. It is not a safe TCM-only postal repair.'},
-  {terms:['u0101','01315','no communication','no comms','loses communication when hot','dies hot'], type:'green', title:'DQ200 TCU no-communication repair', price:'From £179.99', url:'https://tcmrepair.co.uk/', text:'This repair stays on our dedicated TCMRepair.co.uk electronics site.'}
-];
-function runFinder(){
-  if(!q||!out) return;
-  const value = norm(q.value);
-  if(!value){out.innerHTML='<div class="result amber"><strong>Enter a fault code or symptom</strong><span>Try P1736, 10668, only even gears, P17BF or no communication.</span></div>';return;}
-  const hit = rules.find(r => r.terms.some(t => value.includes(norm(t))));
-  if(!hit){out.innerHTML='<div class="result amber"><strong>Not on our fixed-price list yet</strong><span>Do not guess. Send us the fault code, vehicle and TCM label and we will tell you whether it is a supported postal repair.</span><div class="result-actions"><a class="btn btn-dark" href="/#contact">Send fault details</a></div></div>';return;}
-  const ext = hit.url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
-  const action = hit.url==='#' ? '' : `<a class="btn btn-dark" href="${hit.url}"${ext}>View repair</a>`;
-  out.innerHTML=`<div class="result ${hit.type}"><strong>${hit.type==='green'?'✓ Good news. ':hit.type==='red'?'✕ ':'! '}${hit.title}</strong><span>${hit.text}</span><div style="margin-top:8px;font-weight:900;font-size:1.25rem">${hit.price}</div><div class="result-actions">${action}</div></div>`;
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  const b=document.getElementById('faultButton'); if(b) b.addEventListener('click',runFinder);
-  if(q) q.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();runFinder();}});
-  document.querySelectorAll('[data-fill]').forEach(el=>el.addEventListener('click',()=>{if(q){q.value=el.dataset.fill;runFinder();q.scrollIntoView({behavior:'smooth',block:'center'});}}));
-});
+  const norm = s => (s || '').toLowerCase().replace(/[\s_\-\.\/]+/g,' ').trim();
+  const has = (s, arr) => arr.some(x => s.includes(x));
+
+  function render(cls, title, body, actions='') {
+    out.innerHTML = `<div class="result ${cls}"><h3>${title}</h3><p>${body}</p>${actions ? `<div class="result-actions">${actions}</div>` : ''}</div>`;
+  }
+
+  function search() {
+    const s = norm(q.value);
+    if (!s) { render('amber','Enter a code or symptom','Try a code such as P1736, P17BF, 10666, 01315 or describe what the car is doing.'); return; }
+
+    if (has(s,['p0c29','p0c2900','auxiliary hydraulic pump'])) {
+      render('red','Do not send the TCM only','P0C29 / auxiliary hydraulic pump faults normally require gearbox or vehicle-level diagnosis rather than a TCM-only postal repair.','<a class="btn btn-outline" href="/#contact">Send us the full fault details</a>');
+      return;
+    }
+
+    if (has(s,['u0101','01315','no communication','no comms','loses communication','communication when hot','fails when hot'])) {
+      render('green','DQ200 TCM electronics repair','No communication / hot-dropout faults are handled through our dedicated DQ200 TCM electronics service.','<a class="btn btn-dark" href="https://tcmrepair.co.uk/" target="_blank" rel="noopener">Open DQ200 TCM repair</a>');
+      return;
+    }
+
+    if (has(s,['p17bf','p189c','006300','p1895','pump keeps running','pump runs constantly','pressure build up','pressure buildup','insufficient pressure'])) {
+      render('green','DQ200 fixed-price hydraulic / mechatronic repair','This symptom or code matches our £399.99 fixed-price DQ200 hydraulic / mechatronic repair. The fixed price covers the internal mechatronic repair required to resolve the supported fault.','<a class="btn btn-dark" href="/dq200-hydraulic-pressure-repair/">View £399.99 repair</a>');
+      return;
+    }
+
+    if (has(s,['p0841','17225','10784'])) {
+      render('amber','P0841 needs context','P0841 can appear with a genuine DQ200 hydraulic pressure-loss fault, but the code alone is not enough to identify the repair. Send the complete code set and symptoms before posting the unit.','<a class="btn btn-outline" href="/#contact">Send fault details</a>');
+      return;
+    }
+
+    if (has(s,['p1735','p173500','10666','p1736','p173600','10668','p0805','only even gears','only odd gears','lost even gears','lost odd gears'])) {
+      render('green','Supported P1735 / P1736 fault family','This fault is covered on supported DQ380/DQ381 and DQ500 controllers. Choose the correct transmission/controller page from the unit label before sending.','<a class="btn btn-dark" href="/dq380-dq381-p1735-p1736-repair/">DQ380 / DQ381</a><a class="btn btn-outline" href="/dq500-bosch-p1735-p1736-repair/">DQ500 Bosch</a><a class="btn btn-outline" href="/dq500-continental-p1735-p1736-repair/">DQ500 Continental</a>');
+      return;
+    }
+
+    if (has(s,['p0607','p0715','p0716','p2765','p2766','p0850','p0851','p176a','p176b'])) {
+      render('amber','Free test first','This fault may be repairable, but we do not sell it as a fixed-price repair from the code alone. Send the controller details, complete fault scan and symptoms first.','<a class="btn btn-outline" href="/#contact">Send fault details</a>');
+      return;
+    }
+
+    if (has(s,['p072a','p072b','p072c','p072d','p072e','p072f','p073a','p073b','p073c','gear not selectable','shift fork'])) {
+      render('red','Vehicle / gearbox diagnosis first','These gear-selection faults can be mechanical and are not suitable for a blind TCM-only postal repair.','<a class="btn btn-outline" href="/#contact">Send us the full scan</a>');
+      return;
+    }
+
+    render('amber','No fixed-price match yet','We do not want to guess from this description. Send the exact DTC, scanner wording, vehicle, gearbox type and controller part number and we will tell you whether to send it.','<a class="btn btn-outline" href="/#contact">Send fault details</a>');
+  }
+
+  btn.addEventListener('click', search);
+  q.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); search(); } });
+  document.querySelectorAll('[data-fill]').forEach(el => el.addEventListener('click', () => { q.value = el.dataset.fill || ''; search(); }));
+})();
